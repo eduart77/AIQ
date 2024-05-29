@@ -1,79 +1,96 @@
 {% extends 'base.html' %}
-{% block title %}
-Home
-{% endblock %}
 {% block head %}
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
-        $(document).ready(function() {
-            $('#id_domain').change(function() {
-                var url = "{% url 'load_chapters' %}";
-                var domain = $(this).val();
-                $.ajax({
-                    url: url,
-                    data: {
-                        'domain': domain
-                    },
-                    success: function(data) {
-                        $('#id_subdomain').empty();
-                        $('#id_subdomain').append('<option value="" disabled selected>Select a subdomain</option>');
-                        $.each(data, function(key, value) {
-                            $('#id_subdomain').append('<option value="' + value[0] + '">' + value[1] + '</option>');
-                        });
-                    }
-                });
-            });
-        });
-    </script>
-{% endblock %}
+<link href="https://fonts.googleapis.com/css?family=Poppins:400,500,600,700,800,900&display=swap" rel="stylesheet">
+<style>
+    body {
+        font-family: 'Poppins', sans-serif;
+        font-weight: 300;
+        font-size: 15px;
+        line-height: 1.7;
+        color: #c4c3ca;
+        background-color: #1f2029;
+        overflow: auto; /* Allow scrolling */
+        -ms-overflow-style: none;  /* IE and Edge */
+        scrollbar-width: none;  /* Firefox */
+        transform: scale(1);
+    }
 
+    /* Hide scrollbar for Webkit browsers (Chrome, Safari) */
+    body::-webkit-scrollbar {
+        width: 0px;  /* Remove scrollbar space */
+        background: transparent;  /* Optional: just to ensure it's hidden */
+    }
+
+    .container {
+        max-width: 600px;
+        margin: 50px auto;
+        padding: 20px;
+        background-color: #2a2b38;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        border-radius: 16px;
+        text-align: center;
+        background-image: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/1462889/pat.svg');
+        background-position: bottom center;
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+
+    h1 {
+        font-weight: 600;
+        font-size: 24px;
+        color: #ffeba7;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    label {
+        font-weight: 500;
+        margin-bottom: 5px;
+        color: #c4c3ca;
+    }
+
+    input, select {
+        padding: 10px;
+        margin-bottom: 20px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        background-color: #1f2029;
+        color: #c4c3ca;
+        font-weight: 500;
+        width: 100%;
+        max-width: 300px;
+    }
+
+    input[type="submit"] {
+        background-color: #ffeba7;
+        color: #102770;
+        cursor: pointer;
+        font-weight: 600;
+        width: 100%;
+        max-width: 300px;
+    }
+
+    input[type="submit"]:hover {
+        background-color: #102770;
+        color: #ffeba7;
+    }
+</style>
+{% endblock %}
 
 {% block content %}
-<style>
-    form {
-  margin: 0 auto;
-  width: 50%;
-}
-
-label {
-  display: block;
-}
-
-input,
-textarea {
-  width: 100%;
-}
-
-.form-field-wrapper {
-  margin-bottom: 10px;
-}
-
-.form-field-wrapper.flex {
-  display: flex;
-}
-
-.form-field-wrapper.flex>div {
-  flex: 1;
-  margin-left: 10px;
-}
-
-.form-field-wrapper.flex>div:first-child {
-  margin-left: 0;
-}
-</style>
- <h3>Child Profile</h3>
-</br>
-</br>
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_table }}
-    <br><br>
-    <input type="submit" value="Submit">
-</form>
-</br>
-</br>
-</br>
-</br>
-<p>{% include 'profil_psihologic.html' %} </p>
-
+<div class="container">
+    <h1>Child Profile</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_table }}
+        <input type="submit" value="Submit">
+    </form>
+</div>
+<!---<p>{% include 'profil_psihologic.html' %}</p>-->
 {% endblock %}

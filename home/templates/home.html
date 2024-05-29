@@ -1,40 +1,165 @@
 {% extends 'base.html' %}
-{% block title %}
-Home
-{% endblock %}
+{% block title %}Home{% endblock %}
 {% block head %}
+<!-- Include jQuery -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
-        $(document).ready(function() {
-            $('#id_domain').change(function() {
-                var url = "{% url 'load_chapters' %}";
-                var domain = $(this).val();
-                $.ajax({
-                    url: url,
-                    data: {
-                        'domain': domain
-                    },
-                    success: function(data) {
-                        $('#id_subdomain').empty();
-                        $('#id_subdomain').append('<option value="" disabled selected>In detail</option>');
-                        $.each(data, function(key, value) {
-                            $('#id_subdomain').append('<option value="' + value[0] + '">' + value[1] + '</option>');
-                        });
-                    }
+<!-- Include Google Fonts -->
+<link href="https://fonts.googleapis.com/css?family=Poppins:400,500,600,700,800,900&display=swap" rel="stylesheet">
+<!-- Include CSS for styling -->
+<style>
+    @import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700,800,900');
+    body {
+        font-family: 'Poppins', sans-serif;
+        font-weight: 300;
+        font-size: 15px;
+        line-height: 1.7;
+        color: #c4c3ca;
+        background-color: #1f2029;
+        overflow-x: hidden;
+    }
+    a {
+        cursor: pointer;
+        transition: all 200ms linear;
+    }
+    a:hover {
+        text-decoration: none;
+    }
+    .link {
+        color: #c4c3ca;
+    }
+    .link:hover {
+        color: #ffeba7;
+    }
+    p {
+        font-weight: 500;
+        font-size: 14px;
+        line-height: 1.7;
+    }
+    h4 {
+        font-weight: 600;
+    }
+    h6 span {
+        padding: 0 20px;
+        text-transform: uppercase;
+        font-weight: 700;
+    }
+    .section {
+        position: relative;
+        width: 100%;
+        display: block;
+    }
+    .full-height {
+        min-height: 100vh;
+    }
+    .container {
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #2a2b38;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 16px;
+    text-align: center;
+    background-image: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/1462889/pat.svg');
+    background-position: bottom center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+    h1 {
+        font-weight: 600;
+        font-size: 24px;
+        color: #ffeba7;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+    form {
+        display: flex;
+        flex-direction: column;
+    }
+    label {
+
+        font-weight: 500;
+        margin-bottom: 5px;
+        color: #c4c3ca;
+    }
+        input, select {
+        padding: 10px;
+        margin-bottom: 20px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        background-color: #1f2029;
+        color: #c4c3ca;
+        font-weight: 500;
+    }
+    input[type="submit"] {
+        background-color: #ffeba7;
+        color: #102770;
+        cursor: pointer;
+        font-weight: 600;
+    }
+    input[type="submit"]:hover {
+        background-color: #102770;
+        color: #ffeba7;
+    }
+    .container {
+    text-align: center;
+    }
+
+    form {
+        align-items: center;
+    }
+
+    input, select {
+        width: 100%;
+        max-width: 300px;
+    }
+
+    input[type="submit"] {
+        width: 100%;
+        max-width: 300px;
+    }
+
+</style>
+<script>
+    $(document).ready(function() {
+    $('#id_subdomain').append('<option value="" disabled selected>Choose domain</option>');
+
+    $('#id_domain').change(function() {
+        var url = "{% url 'load_chapters' %}";
+        var domain = $(this).val();
+
+        if (domain) {
+            $('#id_subdomain').empty().append('<option value="" disabled selected>Choose subdomain</option>');
+        } else {
+            $('#id_subdomain').empty().append('<option value="" disabled selected>Choose domain</option>');
+        }
+
+        $.ajax({
+            url: url,
+            data: {
+                'domain': domain
+            },
+            success: function(data) {
+                $.each(data, function(key, value) {
+                    $('#id_subdomain').append('<option value="' + value[0] + '">' + value[1] + '</option>');
                 });
-            });
+            }
         });
-    </script>
+    });
+});
+
+</script>
 {% endblock %}
 
-{% block confirmation %}
-{% endblock %}
+{% block confirmation %}{% endblock %}
 
 {% block content %}
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <input type="submit" value="Submit">
-</form>
-<br><br>
+<div class="container">
+    <h1>Home Page</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Submit">
+    </form>
+</div>
 {% endblock %}
+

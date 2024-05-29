@@ -1,8 +1,37 @@
 {% extends 'home.html' %}
 
 {% block content %}
-<h1>Selection Confirmation</h1>
-<p>You want to teach: {{ domain }}</p>
-<p>You are focusing on this: {{ subdomain }}</p>
+<div class="confirmation-container">
+    <h1>Selection Confirmation</h1>
+    <p>You want to teach: {{ domain }}</p>
+    <p>You are focusing on this: {{ subdomain }}</p>
+</div>
+    <style>
+    .confirmation-container {
+        max-width: 600px;
+        margin: 50px auto;
+        padding: 20px;
+        background-color: #2a2b38;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        border-radius: 16px;
+        text-align: center;
+        background-image: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/1462889/pat.svg');
+        background-position: bottom center;
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
 
+    .confirmation-container h1 {
+        font-weight: 600;
+        font-size: 24px;
+        color: #ffeba7;
+        margin-bottom: 20px;
+    }
+
+    .confirmation-container p {
+        font-weight: 500;
+        color: #c4c3ca;
+        margin-bottom: 10px;
+    }
+</style>
 {% endblock %}

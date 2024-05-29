@@ -102,35 +102,40 @@ def ask_chatgpt(request):
     except Exception as e:
         print(f"Error in getting responses from GPT: {e}")
         return render(request, '', {'error': 'Unable to get responses from GPT'})
-    response_1, word_list = response_1.split('HHHHH')
+    word_list =[]
+    if domain == 'languages':
+        response_1, word_list = response_1.split('HHHHH')
     #make a list of strings from word_list
     #delete the elements that are empty strings
-    word_list = word_list.split('\n')
-    word_list = [word for word in word_list if word.strip()]
+    if word_list:
+        word_list = word_list.split('\n')
+        word_list = [word for word in word_list if word.strip()]
     final_word_list = []
     #add all words from word_list to a file
-    with open('word_list.txt', 'w', encoding='utf-8') as a:
+
+    if word_list:
+        with open('word_list.txt', 'w', encoding='utf-8') as a:
+            for word in word_list:
+                a.write(word + '\n')
         for word in word_list:
-            a.write(word + '\n')
-    for word in word_list:
-        prompt_for_translation = ("translate " + word + " to English, don't say anything else, just the word and the translated word and it's pronunciation in " + subdomain + " language separated by a =, each word on a new line in this format: word (pronunciation) = translated word ")
-        try:
-            response_for_translation = get_chatgpt_response(prompt_for_translation)
-            with open('open_ai_response.txt', 'w', encoding='utf-8') as g:
-                g.write(response_for_translation)
-            response_for_translation = response_for_translation.split('\n')
-            original_word_and_pronunciation = response_for_translation[0].split('=')[0]
-            translated_word = response_for_translation[0].split('=')[1]
-            original_word_and_pronunciation = original_word_and_pronunciation.strip()
-            translated_word = translated_word.strip()
-            final_word_list.append(original_word_and_pronunciation)
-            final_word_list.append(translated_word)
-            with open('final_word_list.txt', 'w', encoding='utf-8') as b:
-                for word in final_word_list:
-                    b.write(word + '\n')
-        except Exception as e:
-            print(f"Error in getting responses from GPT: {e}")
-            return render(request, '', {'error': 'Unable to get responses from GPT'})
+            prompt_for_translation = ("translate " + word + " to English, don't say anything else, just the word and the translated word and it's pronunciation in " + subdomain + " language separated by a =, each word on a new line in this format: word (pronunciation) = translated word ")
+            try:
+                response_for_translation = get_chatgpt_response(prompt_for_translation)
+                with open('open_ai_response.txt', 'w', encoding='utf-8') as g:
+                    g.write(response_for_translation)
+                response_for_translation = response_for_translation.split('\n')
+                original_word_and_pronunciation = response_for_translation[0].split('=')[0]
+                translated_word = response_for_translation[0].split('=')[1]
+                original_word_and_pronunciation = original_word_and_pronunciation.strip()
+                translated_word = translated_word.strip()
+                final_word_list.append(original_word_and_pronunciation)
+                final_word_list.append(translated_word)
+                with open('final_word_list.txt', 'w', encoding='utf-8') as b:
+                    for word in final_word_list:
+                        b.write(word + '\n')
+            except Exception as e:
+                print(f"Error in getting responses from GPT: {e}")
+                return render(request, '', {'error': 'Unable to get responses from GPT'})
 
     response_2 = response_2[8:-3]  # Adjust slicing as needed
     response_2_keys = get_keys_from_response(response_2)
@@ -138,11 +143,11 @@ def ask_chatgpt(request):
     for key in response_2_keys:
         prompt_3 = (
             f"You are the best drawer for children's books. Generate a photo with {key} "
-            f"in the portrait orientation, realistic, simple"
+            f"in the portrait orientation, realistic, simple, in a 150px x 150px size."
         )
         try:
-            #response_3 = get_dalle_response(prompt_3)
-            #response_3_urls.append(response_3)
+            response_3 = get_dalle_response(prompt_3)
+            response_3_urls.append(response_3)
             print("photo generated successfully")
         except Exception as e:
             #print(f"Error in getting response from DALL-E: {e}")
