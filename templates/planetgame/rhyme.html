@@ -5,30 +5,153 @@
 {% block content %}
      <h1>Rhyme poems</h1>
     <style>
-    .phrases-container {
-            display: flex;
+    @import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700,800,900');
+    body {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 300;
+            font-size: 15px;
+            line-height: 1.7;
+            color: #c4c3ca;
+            background-color: #1f2029;
+            overflow-x: hidden;
+            margin: 0;
+            padding: 0;
+        }
+        a {
+            cursor: pointer;
+            transition: all 200ms linear;
+        }
+        a:hover {
+            text-decoration: none;
+        }
+        .link {
+            color: #c4c3ca;
+        }
+        .link:hover {
+            color: #ffeba7;
+        }
+        p {
+            font-weight: 500;
+            font-size: 14px;
+            line-height: 1.7;
+        }
+        h4 {
+            font-weight: 600;
+        }
+        h6 span {
+            padding: 0 20px;
+            text-transform: uppercase;
+            font-weight: 700;
+        }
+        .section {
+            position: relative;
             width: 100%;
-            max-width: 800px;
-            margin: 20px auto;
-            border: 1px solid rgba(0, 0, 0, 0.1);
-            border-radius: 10px;
-            overflow: hidden;
+            display: block;
+        }
+        .full-height {
+            min-height: 100vh;
+        }
+        .container {
+        max-width: 1200px;
+        margin: 50px auto;
+        padding: 20px;
+        background-color: #2a2b38;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        border-radius: 16px;
+        text-align: center;
+        background-image: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/1462889/pat.svg');
+        background-position: bottom center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        }
+        h1 {
+            font-weight: 600;
+            font-size: 24px;
+            color: #ffeba7;
             text-align: center;
+            margin-bottom: 20px;
         }
+    .sidenav {
+            height: 100%;
+            width: 210px;
+            position: fixed;
+            z-index: 1;
+            top: 0;
+            left: 0;
+            background-color: #111;
+            overflow-x: hidden;
+            padding-top: 40px;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 300;
+        }
+        .sidenav a {
+            padding: 6px 8px 6px 16px;
+            text-decoration: none;
+            font-size: 25px;
+            color: #818181;
+            display: block;
+        }
+        .sidenav a:hover {
+            color: #f1f1f1;
+        }
+        .main {
+            margin-left: 210px;
+            padding: 0px 10px;
+        }
+    .phrases-container {
+        display: flex;
+        justify-content: space-around;
+        width: 100%;
+        max-width: 800px;
+        margin: 20px auto;
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+        overflow: hidden;
+        text-align: center;
+        background-color: #2a2b38; /* Unified background for the entire container */
+        padding: 20px;
+    }
 
-        .column {
-            flex: 1;
-            padding: 10px;
-            border-right: 1px solid rgba(0, 0, 0, 0.1); /* Faded border */
-        }
+    .column {
+        flex: 1;
+        padding: 10px;
+        border-right: 1px solid rgba(0, 0, 0, 0.1);
+    }
 
-        .column:last-child {
-            border-right: none; /* Remove right border for the last column */
-        }
+    .column:last-child {
+        border-right: none;
+    }
 
-        .column p {
-            margin: 5px 0;
-        }
+    .column p {
+        margin: 5px 0;
+        padding: 10px;
+        border-radius: 5px;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+        background-color: #2a2b38;
+    }
+
+    table, th, td {
+        border: 1px solid #444;
+    }
+
+    th, td {
+        padding: 10px;
+        text-align: center;
+    }
+
+    th {
+        background-color: #343a40;
+    }
+
+    @media screen and (max-height: 450px) {
+        .sidenav { padding-top: 15px; }
+        .sidenav a { font-size: 18px; }
+    }
     </style>
     <div class="phrases-container">
         <div class="column">
@@ -77,12 +200,13 @@
 <br>
             <p>Saturn with its icy rings,</p>
             <p>A cosmic dance that sings.</p>
-
+<br>
             <p>Uranus, tilting on its side,</p>
             <p>Hidden secrets it might hide.</p>
+            <p>Neptune, so far and cold,</p>
             <br></div>
         <div class="column">
-            <p>Neptune, so far and cold,</p>
+
             <p>A distant realm, stories untold.</p>
 
             <p>And Pluto, small, out there,</p>
@@ -107,7 +231,7 @@
             <p>Engineering links our past.</p>
 <br>
             <p>Circuits, planets, both unknown,</p>
-            <p>Brave the fears, and on we'll go.</p>.
+            <p>Brave the fears, and on we'll go.</p>
         </div>
     </div>
 {% endblock %}

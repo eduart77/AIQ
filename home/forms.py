@@ -48,14 +48,14 @@ class SelectionForm(forms.Form):
             ('Water cycle', 'Water Cycle'),
             ('Volcano eruption', 'Volcano Eruption'),
         ],
-        'sports': [
+        'Sports': [
             ('Soccer', 'Soccer'),
             ('Basketball', 'Basketball'),
             ('Swimming', 'Swimming'),
             ('Gymnastics', 'Gymnastics'),
             ('Track and field', 'Track and Field'),
         ],
-        'music': [
+        'Music': [
             ('Singing', 'Singing'),
             ('Playing instruments', 'Playing Instruments'),
             ('Music theory', 'Music Theory'),
